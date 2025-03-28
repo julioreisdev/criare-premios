@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CRIARE - Prêmio</title>
+    <link rel="shortcut icon" href="./Criare.png" type="image/x-icon" />
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      .btn {
+        font-size: 18px;
+        font-weight: bold;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 10px;
+        background-color: #ff6600;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        animation: pulse 1.5s infinite;
+        margin-top: 1rem;
+      }
+
+      .btn:hover {
+        background-color: #ff4500;
+        transform: scale(1.1);
+        color: #fff;
+      }
+
+      h2 {
+        color: #ff6600;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      #box-img {
+        width: 250px;
+        animation: pular 2s infinite;
+      }
+
+      .examples {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .description,
+      #premio-description {
+        text-align: justify;
+        font-size: 2rem;
+        color: gray;
+        padding: 0 2rem;
+        font-weight: 600;
+      }
+
+      .description {
+        width: 60%;
+      }
+
+      #premio-description {
+        margin-bottom: 2rem;
+      }
+
+      .examples img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #ff6600;
+      }
+
+      @keyframes pular {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 720px) {
+        #box-img {
+          width: 200px;
+        }
+
+        .description {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="congratulation">Parabéns!</h2>
+    <p id="premio-description">opa</p>
+    <img id="box-img" src="" alt="" />
+
+    <h2 class="description">
+      Basta ir até a Criare e realizar sua matrícula para receber o prêmio.
+      Informe que você foi sorteado na Roda da Fortuna. A equipe verificará os
+      dados informados no formulário para confirmar sua participação e
+      premiação.
+    </h2>
+    <a href="./index.html"
+      ><button class="btn" onclick="send()">Fazer outro sorteio</button></a
+    >
+
+    <script>
+      const title = document.getElementById("congratulation");
+      const img = document.getElementById("box-img");
+      const text = document.getElementById("premio-description");
+      text.innerText = localStorage.getItem("item")?.toLocaleUpperCase();
+      title.innerText = `PARABÉNS, ${localStorage
+        .getItem("name")
+        ?.toLocaleUpperCase()}!`;
+      img.setAttribute("src", localStorage.getItem("item-link"));
+    </script>
+  </body>
+</html>

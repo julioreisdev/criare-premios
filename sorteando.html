@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SORTEANDO...</title>
+    <link rel="shortcut icon" href="./Criare.png" type="image/x-icon" />
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      h2 {
+        color: #ff6600;
+        margin-bottom: 3rem;
+        font-weight: bold;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      #box-img {
+        width: 250px;
+        animation: pular 1s infinite;
+      }
+
+      .examples {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .examples img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #ff6600;
+      }
+
+      @keyframes pular {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      .contador {
+        font-size: 2.5rem;
+        margin-top: 1rem;
+        color: #fff;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background-color: #ff6600;
+        border-radius: 50%;
+      }
+
+      @media (max-width: 720px) {
+        #box-img {
+          width: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Resgatando seu prêmio!</h2>
+    <img
+      id="box-img"
+      src="https://icons.iconarchive.com/icons/lovuhemant/merry-christmas/256/Gift-icon.png"
+      alt="Caixa de Surpresa"
+    />
+    <p id="contador" class="contador">5</p>
+    <div class="examples">
+      <img
+        src="https://weducar.com/roleta/img/carregadorPortatil.webp"
+        alt=""
+      />
+      <img src="https://weducar.com/roleta/img/fone.jpg" alt="" />
+      <img src="https://weducar.com/roleta/img/smartwatch.jpg" alt="" />
+      <img src="https://weducar.com/roleta/img/voceEscolhe.jpeg" alt="" />
+      <img src="https://weducar.com/roleta/img/desconto.png" alt="" />
+    </div>
+
+    <script>
+      const items = [
+        "Fone de ouvido",
+        "Smartwatch",
+        "Carregador Portátil",
+        "50% Off",
+        "Você que escolhe",
+      ];
+      function itemSelect() {
+        const itemAleatorio = items[Math.floor(Math.random() * items.length)];
+        if (itemAleatorio === "Fone de ouvido") {
+          localStorage.setItem(
+            "item-link",
+            "https://weducar.com/roleta/img/fone.jpg"
+          );
+        } else if (itemAleatorio === "Smartwatch") {
+          localStorage.setItem(
+            "item-link",
+            "https://weducar.com/roleta/img/smartwatch.jpg"
+          );
+        } else if (itemAleatorio === "50% Off") {
+          localStorage.setItem(
+            "item-link",
+            "https://weducar.com/roleta/img/desconto.png"
+          );
+        } else if (itemAleatorio === "Carregador Portátil") {
+          localStorage.setItem(
+            "item-link",
+            "https://weducar.com/roleta/img/carregadorPortatil.webp"
+          );
+        } else {
+          localStorage.setItem(
+            "item-link",
+            "https://weducar.com/roleta/img/voceEscolhe.jpeg"
+          );
+        }
+        localStorage.setItem("item", itemAleatorio);
+      }
+
+      itemSelect();
+      let tempoRestante = 5;
+      const contadorElement = document.getElementById("contador");
+
+      const intervaloContador = setInterval(() => {
+        tempoRestante--;
+        contadorElement.textContent = tempoRestante;
+
+        if (tempoRestante <= 1) {
+          clearInterval(intervaloContador);
+          setTimeout(() => {
+            window.location.href = "premio.html";
+          }, 500);
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
