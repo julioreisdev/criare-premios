@@ -26,8 +26,9 @@
 
       h2 {
         color: #ff6600;
-        margin-bottom: 3rem;
         font-weight: bold;
+        margin-bottom: 2rem;
+        margin-top: 0;
       }
 
       @keyframes pulse {
@@ -43,8 +44,9 @@
       }
 
       #box-img {
-        width: 250px;
-        animation: pular 1s infinite;
+        width: 200px;
+        margin-bottom: 2rem;
+        animation: pular 1s infinite !important;
       }
 
       .examples {
@@ -56,11 +58,25 @@
       }
 
       .examples img {
-        width: 50px;
-        height: 50px;
+        width: 100px;
+        height: 100px;
         border-radius: 50%;
         object-fit: cover;
         border: 2px solid #ff6600;
+        animation: zoomInOut 0.5s infinite;
+        filter: blur(5px);
+      }
+
+      @keyframes zoomInOut {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.5); /* Aumenta o tamanho para 1.5 vezes */
+        }
+        100% {
+          transform: scale(1);
+        }
       }
 
       @keyframes pular {
@@ -76,15 +92,15 @@
       }
 
       .contador {
-        font-size: 2.5rem;
-        margin-top: 1rem;
+        font-size: 2rem;
+
         color: #fff;
         font-weight: bold;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 50px;
-        height: 50px;
+        width: 30px;
+        height: 30px;
         background-color: #ff6600;
         border-radius: 50%;
       }
@@ -97,22 +113,25 @@
     </style>
   </head>
   <body>
-    <h2>Resgatando seu prêmio!</h2>
+    <p id="contador" class="contador">10</p>
+    <h2>Resgatando prêmio!</h2>
     <img
       id="box-img"
       src="https://icons.iconarchive.com/icons/lovuhemant/merry-christmas/256/Gift-icon.png"
       alt="Caixa de Surpresa"
     />
-    <p id="contador" class="contador">5</p>
+
+    <!--  -->
     <div class="examples">
       <img
+        id="img-item"
         src="https://weducar.com/roleta/img/carregadorPortatil.webp"
         alt=""
       />
-      <img src="https://weducar.com/roleta/img/fone.jpg" alt="" />
+      <!-- <img src="https://weducar.com/roleta/img/fone.jpg" alt="" />
       <img src="https://weducar.com/roleta/img/smartwatch.jpg" alt="" />
       <img src="https://weducar.com/roleta/img/voceEscolhe.jpeg" alt="" />
-      <img src="https://weducar.com/roleta/img/desconto.png" alt="" />
+      <img src="https://weducar.com/roleta/img/desconto.png" alt="" /> -->
     </div>
 
     <script>
@@ -123,6 +142,15 @@
         "50% Off",
         "Você que escolhe",
       ];
+
+      const links = [
+        "https://weducar.com/roleta/img/fone.jpg",
+        "https://weducar.com/roleta/img/smartwatch.jpg",
+        "https://weducar.com/roleta/img/desconto.png",
+        "https://weducar.com/roleta/img/carregadorPortatil.webp",
+        "https://weducar.com/roleta/img/voceEscolhe.jpeg",
+      ];
+      const img = document.getElementById("img-item");
       function itemSelect() {
         const itemAleatorio = items[Math.floor(Math.random() * items.length)];
         if (itemAleatorio === "Fone de ouvido") {
@@ -154,8 +182,17 @@
         localStorage.setItem("item", itemAleatorio);
       }
 
+      let count = 0;
+      setInterval(() => {
+        img.setAttribute("src", links[count]);
+        count = count + 1;
+        if (count === links.length) {
+          count = 0;
+        }
+      }, 500);
+
       itemSelect();
-      let tempoRestante = 5;
+      let tempoRestante = 10;
       const contadorElement = document.getElementById("contador");
 
       const intervaloContador = setInterval(() => {
