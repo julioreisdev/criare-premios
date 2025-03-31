@@ -149,5 +149,38 @@
         ?.toLocaleUpperCase()}!`;
       img.setAttribute("src", localStorage.getItem("item-link"));
     </script>
+    <script>
+      const postData = {
+        birthday: localStorage.getItem("date"),
+        name: localStorage.getItem("name"),
+        prize: localStorage.getItem("item"),
+        school: localStorage.getItem("school"),
+        phone: localStorage.getItem("whatsapp"),
+      };
+
+      function sendPostRequest() {
+        fetch("https://backend-sweepstake.onrender.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Falha na requisição");
+            }
+            return response.json();
+          })
+
+          .catch((error) => {
+            console.error("Erro ao enviar o post:", error);
+            alert("Erro ao enviar");
+          });
+      }
+
+      // Chama a função de enviar post quando a página carregar
+      window.onload = sendPostRequest;
+    </script>
   </body>
 </html>
