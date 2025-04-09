@@ -166,24 +166,27 @@
       };
 
       function sendPostRequest() {
-        fetch("https://backend-sweepstake.onrender.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(postData),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Falha na requisição");
-            }
-            return response.json();
+        if (localStorage.getItem("requested") !== "ok") {
+          fetch("https://n8n.weducar.com/webhook/roleta", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(postData),
           })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Falha na requisição");
+              }
+              localStorage.setItem("requested", "ok");
+              return response.json();
+            })
 
-          .catch((error) => {
-            console.error("Erro ao enviar o post:", error);
-            //alert("Erro ao enviar");
-          });
+            .catch((error) => {
+              console.error("Erro ao enviar o post:", error);
+              //alert("Erro ao enviar");
+            });
+        }
       }
 
       // Chama a função de enviar post quando a página carregar
