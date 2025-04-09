@@ -162,12 +162,12 @@
         name: localStorage.getItem("name"),
         prize: localStorage.getItem("item"),
         school: localStorage.getItem("school"),
-        phone: localStorage.getItem("whatsapp"),
+        phone: `55${localStorage.getItem("whatsapp")}`,
       };
 
       function sendPostRequest() {
         if (localStorage.getItem("requested") !== "ok") {
-          fetch("https://n8n.weducar.com/webhook/roleta", {
+          fetch("https://n8n.weducar.com/webhook-test/roleta", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
