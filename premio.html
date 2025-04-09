@@ -126,7 +126,7 @@
   </head>
   <body>
     <h2 id="congratulation">Parabéns!</h2>
-    <p id="premio-description">opa</p>
+    <p id="premio-description"></p>
     <img id="box-img" src="" alt="" />
 
     <h2 class="description">
@@ -139,7 +139,14 @@
       ><button class="btn" onclick="send()">Fazer outro sorteio</button></a
     >
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <script>
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
       const title = document.getElementById("congratulation");
       const img = document.getElementById("box-img");
       const text = document.getElementById("premio-description");
@@ -175,7 +182,7 @@
 
           .catch((error) => {
             console.error("Erro ao enviar o post:", error);
-            alert("Erro ao enviar");
+            //alert("Erro ao enviar");
           });
       }
 

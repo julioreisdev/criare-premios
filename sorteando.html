@@ -49,6 +49,16 @@
         animation: pular 1s infinite !important;
       }
 
+      #box-img-open {
+        width: 200px;
+        margin-bottom: 2rem;
+        animation: surgirDeBaixo 2s infinite !important;
+      }
+
+      .disabled {
+        display: none;
+      }
+
       .examples {
         display: flex;
         align-items: center;
@@ -91,6 +101,17 @@
         }
       }
 
+      @keyframes surgirDeBaixo {
+        0% {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       .contador {
         font-size: 2rem;
 
@@ -109,6 +130,9 @@
         #box-img {
           width: 200px;
         }
+        #box-img-open {
+          width: 200px;
+        }
       }
     </style>
   </head>
@@ -118,6 +142,13 @@
     <img
       id="box-img"
       src="https://icons.iconarchive.com/icons/lovuhemant/merry-christmas/256/Gift-icon.png"
+      alt="Caixa de Surpresa"
+    />
+
+    <img
+      class="disabled"
+      id="box-img-open"
+      src="./aberto_gpt.png"
       alt="Caixa de Surpresa"
     />
 
@@ -140,15 +171,16 @@
         "Smartwatch",
         "Carregador Portátil",
         "50% Off",
-        "Você que escolhe",
+        "Headphone",
       ];
 
       const links = [
         "https://weducar.com/roleta/img/fone.jpg",
-        "https://weducar.com/roleta/img/smartwatch.jpg",
+        "./smart.png",
         "https://weducar.com/roleta/img/desconto.png",
         "https://weducar.com/roleta/img/carregadorPortatil.webp",
-        "https://weducar.com/roleta/img/voceEscolhe.jpeg",
+        "./drone.png",
+        "./headphone.png",
       ];
       const img = document.getElementById("img-item");
       function itemSelect() {
@@ -159,10 +191,7 @@
             "https://weducar.com/roleta/img/fone.jpg"
           );
         } else if (itemAleatorio === "Smartwatch") {
-          localStorage.setItem(
-            "item-link",
-            "https://weducar.com/roleta/img/smartwatch.jpg"
-          );
+          localStorage.setItem("item-link", "./smart.png");
         } else if (itemAleatorio === "50% Off") {
           localStorage.setItem(
             "item-link",
@@ -173,31 +202,41 @@
             "item-link",
             "https://weducar.com/roleta/img/carregadorPortatil.webp"
           );
-        } else {
-          localStorage.setItem(
-            "item-link",
-            "https://weducar.com/roleta/img/voceEscolhe.jpeg"
-          );
+        } else if ("Headphone") {
+          localStorage.setItem("item-link", "./headphone.png");
         }
         localStorage.setItem("item", itemAleatorio);
       }
 
       let count = 0;
       setInterval(() => {
-        img.setAttribute("src", links[count]);
-        count = count + 1;
-        if (count === links.length) {
-          count = 0;
+        const imgClosed = document.querySelector("#box-img");
+
+        if (imgClosed.classList.contains("disabled")) {
+          img.classList.add("disabled");
+        } else {
+          img.setAttribute("src", links[count]);
+          count = count + 1;
+          if (count === links.length) {
+            count = 0;
+          }
         }
       }, 500);
 
       itemSelect();
       let tempoRestante = 10;
       const contadorElement = document.getElementById("contador");
+      const closed = document.getElementById("box-img");
+      const open = document.getElementById("box-img-open");
 
       const intervaloContador = setInterval(() => {
         tempoRestante--;
         contadorElement.textContent = tempoRestante;
+
+        if (tempoRestante === 2) {
+          closed.classList.add("disabled");
+          open.classList.remove("disabled");
+        }
 
         if (tempoRestante <= 1) {
           clearInterval(intervaloContador);
