@@ -157,17 +157,18 @@
       img.setAttribute("src", localStorage.getItem("item-link"));
     </script>
     <script>
+      const dateBirthday = localStorage.getItem("date")?.split("/");
       const postData = {
-        birthday: localStorage.getItem("date"),
+        birthday: `${dateBirthday[2]}-${dateBirthday[1]}-${dateBirthday[0]}`,
         name: localStorage.getItem("name"),
         prize: localStorage.getItem("item"),
         school: localStorage.getItem("school"),
-        phone: `55${localStorage.getItem("whatsapp")}`,
+        phone: `55${localStorage.getItem("whatsapp")?.replace(/\D/g, "")}`,
       };
 
       function sendPostRequest() {
         if (localStorage.getItem("requested") !== "ok") {
-          fetch("https://n8n.weducar.com/webhook-test/roleta", {
+          fetch("https://n8n.weducar.com/webhook/roleta", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

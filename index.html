@@ -151,9 +151,8 @@
           id="date"
           class="form-control"
           required
-          onfocus="(this.type='date')"
-          onblur="(this.value ? this.type='date' : this.type='text')"
           placeholder="Data de nascimento"
+          maxlength="10"
         />
         <input
           type="tel"
@@ -161,6 +160,7 @@
           id="whatsapp"
           required
           placeholder="Seu WhatsApp"
+          maxlength="15"
         />
 
         <button class="btn" onclick="send()">Clique para participar!</button>
@@ -170,6 +170,42 @@
     <p class="action-city">Sorteando agora!</p>
 
     <!-- /.col-lg-6 -->
+
+    <script>
+      const whatsappInput = document.getElementById("whatsapp");
+
+      whatsappInput.addEventListener("input", function (e) {
+        let value = e.target.value.replace(/\D/g, "");
+        if (value.length > 0) {
+          value = "(" + value;
+        }
+        if (value.length > 3) {
+          value = value.slice(0, 3) + ")" + value.slice(3);
+        }
+        if (value.length > 4) {
+          value = value.slice(0, 4) + " " + value.slice(4);
+        }
+        if (value.length > 10) {
+          value = value.slice(0, 10) + "-" + value.slice(10, 14);
+        }
+        e.target.value = value.slice(0, 15);
+      });
+    </script>
+
+    <script>
+      const dateInput = document.getElementById("date");
+
+      dateInput.addEventListener("input", function (e) {
+        let value = e.target.value.replace(/\D/g, "");
+        if (value.length > 2) {
+          value = value.slice(0, 2) + "/" + value.slice(2);
+        }
+        if (value.length > 5) {
+          value = value.slice(0, 5) + "/" + value.slice(5, 9);
+        }
+        e.target.value = value.slice(0, 10);
+      });
+    </script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script
